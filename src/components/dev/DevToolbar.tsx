@@ -7,18 +7,16 @@ export const DevToolbar: React.FC = () => {
   const { loginAsOwner, loginAsWalker, loginAsAdmin, logoutUser } = useTestAuth();
 
   // Solo mostrar en desarrollo
-  if (import.meta.env.PROD) {
-    return null;
-  }
+  
 
   return (
     <div className="fixed bottom-4 right-4 bg-gray-900 text-white p-4 rounded-lg shadow-lg z-50 min-w-[280px]">
-      <div className="text-sm font-semibold mb-3 text-gray-300">
+      <div className="mb-3 text-sm font-semibold text-gray-300">
         🛠️ Dev Toolbar
       </div>
       
       <div className="mb-3">
-        <div className="text-xs text-gray-400 mb-1">Estado actual:</div>
+        <div className="mb-1 text-xs text-gray-400">Estado actual:</div>
         {isAuthenticated && user ? (
           <div className="text-xs">
             <span className="text-green-400">✅ Logueado</span>
@@ -28,12 +26,12 @@ export const DevToolbar: React.FC = () => {
             <span className="text-blue-400">Rol: {user.role}</span>
           </div>
         ) : (
-          <span className="text-red-400 text-xs">❌ No logueado</span>
+          <span className="text-xs text-red-400">❌ No logueado</span>
         )}
       </div>
 
       <div className="space-y-2">
-        <div className="text-xs text-gray-400 mb-2">Login rápido:</div>
+        <div className="mb-2 text-xs text-gray-400">Login rápido:</div>
         
         <button
           onClick={loginAsOwner}
