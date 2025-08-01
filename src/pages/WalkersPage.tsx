@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { collection, getDocs, query, where } from 'firebase/firestore';
-import { db } from '../services/firebase';
+//import { collection, getDocs, query, where } from 'firebase/firestore';
+//import { db } from '../services/firebase';
 import type { Walker } from '../types';
 import MapComponent from '../components/MapComponent';
 import { Star, MapPin, Phone, Euro } from 'lucide-react';
@@ -140,14 +140,14 @@ const WalkersPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto py-8 px-4">
-      <h2 className="text-3xl font-bold mb-8">Paseadores Disponibles</h2>
+    <div className="px-4 py-8 mx-auto max-w-7xl">
+      <h2 className="mb-8 text-3xl font-bold">Paseadores Disponibles</h2>
       
       {/* Mapa con paseadores */}
-      <div className="mb-8 bg-white rounded-lg shadow-lg overflow-hidden">
+      <div className="mb-8 overflow-hidden bg-white rounded-lg shadow-lg">
         <div className="p-4 border-b">
-          <h3 className="text-lg font-semibold flex items-center">
-            <MapPin className="h-5 w-5 mr-2 text-primary-600" />
+          <h3 className="flex items-center text-lg font-semibold">
+            <MapPin className="w-5 h-5 mr-2 text-primary-600" />
             Ubicación de Paseadores
           </h3>
         </div>
@@ -167,7 +167,7 @@ const WalkersPage: React.FC = () => {
       </div>
 
       {/* Lista de paseadores */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {walkers.map((walker) => (
           <div 
             key={walker.id} 
@@ -179,19 +179,19 @@ const WalkersPage: React.FC = () => {
             <img 
               src={walker.avatar} 
               alt={walker.name} 
-              className="w-full h-48 object-cover" 
+              className="object-cover w-full h-48" 
             />
             <div className="p-6">
               <div className="flex items-center justify-between mb-2">
                 <h3 className="text-xl font-bold text-gray-900">{walker.name}</h3>
                 {walker.verified && (
-                  <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
+                  <span className="px-2 py-1 text-xs text-green-800 bg-green-100 rounded-full">
                     Verificado
                   </span>
                 )}
               </div>
               
-              <p className="text-gray-600 text-sm mb-4 line-clamp-2">{walker.bio}</p>
+              <p className="mb-4 text-sm text-gray-600 line-clamp-2">{walker.bio}</p>
               
               <div className="flex items-center mb-3">
                 <div className="flex items-center">
@@ -211,29 +211,29 @@ const WalkersPage: React.FC = () => {
                 </span>
               </div>
               
-              <div className="flex items-center text-sm text-gray-600 mb-3">
-                <MapPin className="h-4 w-4 mr-1" />
+              <div className="flex items-center mb-3 text-sm text-gray-600">
+                <MapPin className="w-4 h-4 mr-1" />
                 {walker.location.address}
               </div>
               
               <div className="flex items-center justify-between">
                 <div className="flex items-center text-lg font-bold text-primary-600">
-                  <Euro className="h-5 w-5 mr-1" />
+                  <Euro className="w-5 h-5 mr-1" />
                   {walker.pricePerHour}/hora
                 </div>
                 <button className="btn-primary">
-                  <Phone className="h-4 w-4 mr-1" />
+                  <Phone className="w-4 h-4 mr-1" />
                   Contactar
                 </button>
               </div>
               
-              <div className="mt-4 pt-4 border-t">
-                <p className="text-xs text-gray-500 mb-2">Servicios:</p>
+              <div className="pt-4 mt-4 border-t">
+                <p className="mb-2 text-xs text-gray-500">Servicios:</p>
                 <div className="flex flex-wrap gap-1">
                   {walker.services.slice(0, 2).map((service, index) => (
                     <span 
                       key={index}
-                      className="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded"
+                      className="px-2 py-1 text-xs text-gray-700 bg-gray-100 rounded"
                     >
                       {service}
                     </span>

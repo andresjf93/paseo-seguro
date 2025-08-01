@@ -133,14 +133,14 @@ const PetsPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto py-8 px-4">
-      <h2 className="text-3xl font-bold mb-8">Mascotas Disponibles para Paseo</h2>
+    <div className="px-4 py-8 mx-auto max-w-7xl">
+      <h2 className="mb-8 text-3xl font-bold">Mascotas Disponibles para Paseo</h2>
       
       {/* Mapa con ubicaciones de mascotas */}
-      <div className="mb-8 bg-white rounded-lg shadow-lg overflow-hidden">
+      <div className="mb-8 overflow-hidden bg-white rounded-lg shadow-lg">
         <div className="p-4 border-b">
-          <h3 className="text-lg font-semibold flex items-center">
-            <MapPin className="h-5 w-5 mr-2 text-primary-600" />
+          <h3 className="flex items-center text-lg font-semibold">
+            <MapPin className="w-5 h-5 mr-2 text-primary-600" />
             Ubicación de Mascotas
           </h3>
         </div>
@@ -163,7 +163,7 @@ const PetsPage: React.FC = () => {
       </div>
 
       {/* Lista de mascotas */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {pets.map((pet) => {
           const ownerLocation = mockOwnerLocations[pet.ownerId as keyof typeof mockOwnerLocations];
           
@@ -178,7 +178,7 @@ const PetsPage: React.FC = () => {
               <img 
                 src={pet.photos[0]} 
                 alt={pet.name} 
-                className="w-full h-48 object-cover" 
+                className="object-cover w-full h-48" 
               />
               <div className="p-6">
                 <div className="flex items-center justify-between mb-2">
@@ -188,11 +188,11 @@ const PetsPage: React.FC = () => {
                   </span>
                 </div>
                 
-                <p className="text-gray-600 text-sm mb-2">{pet.breed}</p>
+                <p className="mb-2 text-sm text-gray-600">{pet.breed}</p>
                 
-                <div className="flex items-center space-x-4 text-sm text-gray-600 mb-3">
+                <div className="flex items-center mb-3 space-x-4 text-sm text-gray-600">
                   <div className="flex items-center">
-                    <Clock className="h-4 w-4 mr-1" />
+                    <Clock className="w-4 h-4 mr-1" />
                     {pet.age} años
                   </div>
                   <div className="flex items-center">
@@ -200,20 +200,20 @@ const PetsPage: React.FC = () => {
                   </div>
                 </div>
                 
-                <div className="flex items-center text-sm text-gray-600 mb-3">
-                  <User className="h-4 w-4 mr-1" />
+                <div className="flex items-center mb-3 text-sm text-gray-600">
+                  <User className="w-4 h-4 mr-1" />
                   {ownerLocation.name}
                 </div>
                 
-                <div className="flex items-center text-sm text-gray-600 mb-4">
-                  <MapPin className="h-4 w-4 mr-1" />
+                <div className="flex items-center mb-4 text-sm text-gray-600">
+                  <MapPin className="w-4 h-4 mr-1" />
                   {ownerLocation.address}
                 </div>
                 
-                <p className="text-sm text-gray-700 mb-4 line-clamp-2">{pet.temperament}</p>
+                <p className="mb-4 text-sm text-gray-700 line-clamp-2">{pet.temperament}</p>
                 
                 {pet.specialNeeds && (
-                  <div className="mb-4 p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                  <div className="p-3 mb-4 border border-orange-200 rounded-lg bg-orange-50">
                     <div className="flex items-start">
                       <Info className="h-4 w-4 text-orange-600 mr-2 mt-0.5 flex-shrink-0" />
                       <p className="text-sm text-orange-800">{pet.specialNeeds}</p>
@@ -223,15 +223,15 @@ const PetsPage: React.FC = () => {
                 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
-                    <Heart className="h-4 w-4 text-red-500" />
+                    <Heart className="w-4 h-4 text-red-500" />
                     {pet.vaccinated && (
-                      <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
+                      <span className="px-2 py-1 text-xs text-green-800 bg-green-100 rounded">
                         Vacunado
                       </span>
                     )}
                   </div>
                   <button className="btn-primary">
-                    <Phone className="h-4 w-4 mr-1" />
+                    <Phone className="w-4 h-4 mr-1" />
                     Contactar
                   </button>
                 </div>

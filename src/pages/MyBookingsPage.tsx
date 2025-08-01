@@ -95,9 +95,9 @@ const MyBookingsPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto py-8 px-4">
+    <div className="px-4 py-8 mx-auto max-w-7xl">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="mb-2 text-3xl font-bold text-gray-900">
           Mis Reservas
         </h1>
         <p className="text-gray-600">
@@ -105,7 +105,7 @@ const MyBookingsPage: React.FC = () => {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Lista de reservas */}
         <div className="lg:col-span-1">
           <div className="space-y-4">
@@ -138,7 +138,7 @@ const MyBookingsPage: React.FC = () => {
                         {getStatusText(booking.status)}
                       </span>
                     </div>
-                    <div className="flex items-center space-x-4 text-sm text-gray-600 mt-1">
+                    <div className="flex items-center mt-1 space-x-4 text-sm text-gray-600">
                       <div className="flex items-center">
                         <Calendar className="w-4 h-4 mr-1" />
                         {booking.date}
@@ -150,7 +150,7 @@ const MyBookingsPage: React.FC = () => {
                     </div>
                     {booking.rating && (
                       <div className="flex items-center mt-2">
-                        <Star className="w-4 h-4 text-yellow-400 fill-current mr-1" />
+                        <Star className="w-4 h-4 mr-1 text-yellow-400 fill-current" />
                         <span className="text-sm font-medium">{booking.rating}</span>
                       </div>
                     )}
@@ -177,7 +177,7 @@ const MyBookingsPage: React.FC = () => {
               </span>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div className="grid grid-cols-1 gap-6 mb-6 md:grid-cols-2">
               <div className="flex items-center space-x-3">
                 <img
                   src={selectedBooking.walkerAvatar}
@@ -190,9 +190,9 @@ const MyBookingsPage: React.FC = () => {
                   </h3>
                   {selectedBooking.rating && (
                     <div className="flex items-center">
-                      <Star className="w-4 h-4 text-yellow-400 fill-current mr-1" />
+                      <Star className="w-4 h-4 mr-1 text-yellow-400 fill-current" />
                       <span className="text-sm font-medium">{selectedBooking.rating}</span>
-                      <span className="text-sm text-gray-500 ml-1">Calificación</span>
+                      <span className="ml-1 text-sm text-gray-500">Calificación</span>
                     </div>
                   )}
                 </div>
@@ -212,7 +212,7 @@ const MyBookingsPage: React.FC = () => {
 
             {/* Mapa del recorrido */}
             <div className="mb-4">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3 flex items-center">
+              <h3 className="flex items-center mb-3 text-lg font-semibold text-gray-900">
                 <MapPin className="w-5 h-5 mr-2 text-primary-600" />
                 Recorrido del Paseo
               </h3>
@@ -227,7 +227,7 @@ const MyBookingsPage: React.FC = () => {
               ) : (
                 <div className="flex items-center justify-center h-64 bg-gray-100 rounded-lg">
                   <div className="text-center">
-                    <MapPin className="w-12 h-12 text-gray-400 mx-auto mb-2" />
+                    <MapPin className="w-12 h-12 mx-auto mb-2 text-gray-400" />
                     <p className="text-gray-500">
                       El recorrido estará disponible después del paseo
                     </p>
@@ -253,7 +253,7 @@ const MyBookingsPage: React.FC = () => {
                   Calificar Paseo
                 </button>
               )}
-              <button className="btn-secondary flex items-center">
+              <button className="flex items-center btn-secondary">
                 <User className="w-4 h-4 mr-2" />
                 Contactar Paseador
               </button>

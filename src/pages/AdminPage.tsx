@@ -15,7 +15,6 @@ import {
 const AdminPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'bookings' | 'reports'>('overview');
 
-  // Mock admin data
   const stats = {
     totalUsers: 247,
     totalWalkers: 32,
@@ -48,14 +47,14 @@ const AdminPage: React.FC = () => {
     switch (status) {
       case 'active':
       case 'completed':
-        return <CheckCircle className="h-4 w-4 text-green-500" />;
+        return <CheckCircle className="w-4 h-4 text-green-500" />;
       case 'pending':
       case 'in_progress':
-        return <AlertCircle className="h-4 w-4 text-yellow-500" />;
+        return <AlertCircle className="w-4 h-4 text-yellow-500" />;
       case 'cancelled':
-        return <XCircle className="h-4 w-4 text-red-500" />;
+        return <XCircle className="w-4 h-4 text-red-500" />;
       default:
-        return <AlertCircle className="h-4 w-4 text-gray-500" />;
+        return <AlertCircle className="w-4 h-4 text-gray-500" />;
     }
   };
 
@@ -72,13 +71,13 @@ const AdminPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto py-8 px-4">
+    <div className="px-4 py-8 mx-auto max-w-7xl">
       <div className="mb-8">
-        <h2 className="text-3xl font-bold flex items-center">
-          <Settings className="h-8 w-8 mr-3 text-primary-600" />
+        <h2 className="flex items-center text-3xl font-bold">
+          <Settings className="w-8 h-8 mr-3 text-primary-600" />
           Panel de Administración
         </h2>
-        <p className="text-gray-600 mt-2">Gestiona usuarios, reservas y estadísticas de la plataforma</p>
+        <p className="mt-2 text-gray-600">Gestiona usuarios, reservas y estadísticas de la plataforma</p>
       </div>
 
       {/* Tabs */}
@@ -101,7 +100,7 @@ const AdminPage: React.FC = () => {
                     : 'border-transparent text-gray-500 hover:text-gray-700'
                 }`}
               >
-                <Icon className="h-4 w-4 mr-2" />
+                <Icon className="w-4 h-4 mr-2" />
                 {tab.label}
               </button>
             );
@@ -113,40 +112,44 @@ const AdminPage: React.FC = () => {
       {activeTab === 'overview' && (
         <div className="space-y-8">
           {/* Stats Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white rounded-lg shadow-lg p-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {/* Card 1 */}
+            <div className="p-6 bg-white rounded-lg shadow-lg">
               <div className="flex items-center">
-                <Users className="h-8 w-8 text-blue-600" />
+                <Users className="w-8 h-8 text-blue-600" />
                 <div className="ml-4">
                   <p className="text-sm text-gray-600">Total Usuarios</p>
                   <p className="text-2xl font-bold text-blue-600">{stats.totalUsers}</p>
                 </div>
               </div>
             </div>
-            
-            <div className="bg-white rounded-lg shadow-lg p-6">
+
+            {/* Card 2 */}
+            <div className="p-6 bg-white rounded-lg shadow-lg">
               <div className="flex items-center">
-                <Calendar className="h-8 w-8 text-green-600" />
+                <Calendar className="w-8 h-8 text-green-600" />
                 <div className="ml-4">
                   <p className="text-sm text-gray-600">Total Reservas</p>
                   <p className="text-2xl font-bold text-green-600">{stats.totalBookings}</p>
                 </div>
               </div>
             </div>
-            
-            <div className="bg-white rounded-lg shadow-lg p-6">
+
+            {/* Card 3 */}
+            <div className="p-6 bg-white rounded-lg shadow-lg">
               <div className="flex items-center">
-                <TrendingUp className="h-8 w-8 text-purple-600" />
+                <TrendingUp className="w-8 h-8 text-purple-600" />
                 <div className="ml-4">
                   <p className="text-sm text-gray-600">Ingresos Totales</p>
                   <p className="text-2xl font-bold text-purple-600">€{stats.totalRevenue}</p>
                 </div>
               </div>
             </div>
-            
-            <div className="bg-white rounded-lg shadow-lg p-6">
+
+            {/* Card 4 */}
+            <div className="p-6 bg-white rounded-lg shadow-lg">
               <div className="flex items-center">
-                <Star className="h-8 w-8 text-yellow-600" />
+                <Star className="w-8 h-8 text-yellow-600" />
                 <div className="ml-4">
                   <p className="text-sm text-gray-600">Calificación Media</p>
                   <p className="text-2xl font-bold text-yellow-600">{stats.averageRating}</p>
@@ -156,7 +159,8 @@ const AdminPage: React.FC = () => {
           </div>
 
           {/* Recent Activity */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            {/* Usuarios Recientes */}
             <div className="bg-white rounded-lg shadow-lg">
               <div className="p-6 border-b">
                 <h3 className="text-lg font-semibold">Usuarios Recientes</h3>
@@ -166,8 +170,8 @@ const AdminPage: React.FC = () => {
                   {recentUsers.map(user => (
                     <div key={user.id} className="flex items-center justify-between">
                       <div className="flex items-center">
-                        <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                          <Users className="h-5 w-5 text-gray-600" />
+                        <div className="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-full">
+                          <Users className="w-5 h-5 text-gray-600" />
                         </div>
                         <div className="ml-3">
                           <p className="font-medium">{user.name}</p>
@@ -180,7 +184,10 @@ const AdminPage: React.FC = () => {
                         }`}>
                           {user.role === 'walker' ? 'Paseador' : 'Dueño'}
                         </span>
-                        {getStatusIcon(user.status)}
+                        <div className="flex items-center gap-1 text-sm text-gray-600">
+                          {getStatusIcon(user.status)}
+                          <span>{getStatusText(user.status)}</span>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -188,6 +195,7 @@ const AdminPage: React.FC = () => {
               </div>
             </div>
 
+            {/* Reservas Recientes */}
             <div className="bg-white rounded-lg shadow-lg">
               <div className="p-6 border-b">
                 <h3 className="text-lg font-semibold">Reservas Recientes</h3>
@@ -197,17 +205,20 @@ const AdminPage: React.FC = () => {
                   {recentBookings.map(booking => (
                     <div key={booking.id} className="flex items-center justify-between">
                       <div className="flex items-center">
-                        <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                          <Heart className="h-5 w-5 text-gray-600" />
+                        <div className="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-full">
+                          <Heart className="w-5 h-5 text-gray-600" />
                         </div>
                         <div className="ml-3">
                           <p className="font-medium">{booking.pet}</p>
                           <p className="text-sm text-gray-600">{booking.walker} → {booking.owner}</p>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-2">
-                        <span className="text-sm font-medium">€{booking.amount}</span>
-                        {getStatusIcon(booking.status)}
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-medium text-gray-700">€{booking.amount}</span>
+                        <div className="flex items-center gap-1 text-sm text-gray-600">
+                          {getStatusIcon(booking.status)}
+                          <span>{getStatusText(booking.status)}</span>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -220,11 +231,11 @@ const AdminPage: React.FC = () => {
 
       {/* Other tabs content */}
       {activeTab !== 'overview' && (
-        <div className="bg-white rounded-lg shadow-lg p-8 text-center">
-          <div className="text-gray-400 mb-4">
-            <Settings className="h-16 w-16 mx-auto" />
+        <div className="p-8 text-center bg-white rounded-lg shadow-lg">
+          <div className="mb-4 text-gray-400">
+            <Settings className="w-16 h-16 mx-auto" />
           </div>
-          <h3 className="text-xl font-semibold mb-2">
+          <h3 className="mb-2 text-xl font-semibold">
             {activeTab === 'users' && 'Gestión de Usuarios'}
             {activeTab === 'bookings' && 'Gestión de Reservas'}
             {activeTab === 'reports' && 'Reportes y Análisis'}
@@ -233,8 +244,7 @@ const AdminPage: React.FC = () => {
             Esta sección está en desarrollo. Aquí podrás gestionar{' '}
             {activeTab === 'users' && 'usuarios, paseadores y verificaciones'}
             {activeTab === 'bookings' && 'reservas, pagos y disputas'}
-            {activeTab === 'reports' && 'reportes detallados y métricas'}
-            .
+            {activeTab === 'reports' && 'reportes detallados y métricas'}.
           </p>
         </div>
       )}

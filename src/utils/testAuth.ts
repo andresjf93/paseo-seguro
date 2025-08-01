@@ -1,5 +1,5 @@
 import { useAuthStore } from '../store/authStore';
-import type { User } from '../types';
+//import type { User } from '../types';
 
 // Usuarios de prueba predefinidos
 export const TEST_USERS = {

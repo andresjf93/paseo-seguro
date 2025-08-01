@@ -1,18 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Wrapper, Status } from '@googlemaps/react-wrapper';
-import type { MapProps, MapMarker, MapRoute } from '../../types';
+import type { MapProps, MapMarker, MapRoute, Location } from '../../types';
 
+// Render de estados de carga del mapa
 const render = (status: Status) => {
   switch (status) {
     case Status.LOADING:
       return (
         <div className="flex items-center justify-center h-64 bg-gray-100 rounded-lg">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+          <div className="w-8 h-8 border-b-2 rounded-full animate-spin border-primary-600"></div>
         </div>
       );
     case Status.FAILURE:
       return (
-        <div className="flex items-center justify-center h-64 bg-red-50 rounded-lg">
+        <div className="flex items-center justify-center h-64 rounded-lg bg-red-50">
           <p className="text-red-600">Error al cargar el mapa</p>
         </div>
       );
@@ -21,12 +22,29 @@ const render = (status: Status) => {
   }
 };
 
+// Función para parsear resultados del geocoder a tipo Location
+const parseGeocoderResultToLocation = (result: google.maps.GeocoderResult): Location => {
+  const components = result.address_components;
+
+  const getComponent = (type: string) =>
+    components.find((c) => c.types.includes(type))?.long_name || '';
+
+  return {
+    lat: result.geometry.location.lat(),
+    lng: result.geometry.location.lng(),
+    address: result.formatted_address,
+    city: getComponent('locality') || getComponent('administrative_area_level_2'),
+    state: getComponent('administrative_area_level_1'),
+    zipCode: getComponent('postal_code')
+  };
+};
+
 interface GoogleMapProps {
-  center: { lat: number; lng: number };
+  center: Location;
   zoom: number;
   markers?: MapMarker[];
   routes?: MapRoute[];
-  onLocationSelect?: (location: { lat: number; lng: number; address: string }) => void;
+  onLocationSelect?: (location: Location) => void;
   height?: string;
 }
 
@@ -41,6 +59,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map>();
 
+  // Inicializar el mapa
   useEffect(() => {
     if (ref.current && !map) {
       const newMap = new window.google.maps.Map(ref.current, {
@@ -57,27 +76,26 @@ const GoogleMap: React.FC<GoogleMapProps> = ({
 
       setMap(newMap);
 
-      // Agregar click listener para seleccionar ubicación
+      // Listener de click para seleccionar ubicación
       if (onLocationSelect) {
         newMap.addListener('click', (e: google.maps.MapMouseEvent) => {
           const lat = e.latLng?.lat();
           const lng = e.latLng?.lng();
-          
+
           if (lat && lng) {
-            // Geocoding reverso para obtener la dirección
             const geocoder = new google.maps.Geocoder();
             geocoder.geocode({ location: { lat, lng } }, (results, status) => {
               if (status === 'OK' && results?.[0]) {
-                onLocationSelect({
-                  lat,
-                  lng,
-                  address: results[0].formatted_address
-                });
+                const location = parseGeocoderResultToLocation(results[0]);
+                onLocationSelect(location);
               } else {
                 onLocationSelect({
                   lat,
                   lng,
-                  address: `${lat.toFixed(6)}, ${lng.toFixed(6)}`
+                  address: `${lat.toFixed(6)}, ${lng.toFixed(6)}`,
+                  city: '',
+                  state: '',
+                  zipCode: ''
                 });
               }
             });
@@ -87,7 +105,7 @@ const GoogleMap: React.FC<GoogleMapProps> = ({
     }
   }, [ref, map, center, zoom, onLocationSelect]);
 
-  // Agregar marcadores
+  // Dibujar marcadores
   useEffect(() => {
     if (map) {
       markers.forEach((marker) => {
@@ -105,18 +123,18 @@ const GoogleMap: React.FC<GoogleMapProps> = ({
     }
   }, [map, markers]);
 
-  // Agregar rutas
+  // Dibujar rutas
   useEffect(() => {
     if (map && routes.length > 0) {
       routes.forEach((route) => {
-        const path = route.path.map(point => ({ lat: point.lat, lng: point.lng }));
-        
+        const path = route.path.map((point) => ({ lat: point.lat, lng: point.lng }));
+
         const polyline = new google.maps.Polyline({
           path,
           geodesic: true,
           strokeColor: route.color,
           strokeOpacity: 1.0,
-          strokeWeight: route.weight,
+          strokeWeight: route.weight
         });
 
         polyline.setMap(map);

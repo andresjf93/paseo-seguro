@@ -41,10 +41,10 @@ export interface Availability {
 export interface Location {
   lat: number;
   lng: number;
-  address: string;
-  city: string;
-  state: string;
-  zipCode: string;
+   address?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
 }
 
 // Pet types

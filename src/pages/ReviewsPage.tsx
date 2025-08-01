@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Star, User, Calendar, Heart, MessageCircle } from 'lucide-react';
+import { Star,  Calendar, Heart, MessageCircle } from 'lucide-react';
 import type { Review } from '../types';
 
 const ReviewsPage: React.FC = () => {
